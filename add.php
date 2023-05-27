@@ -179,7 +179,7 @@ $ids = array("BRAF01","BRAF02","BRAF03","BRAF04","BRAF05","BRAF06");  // IDs
 
 // Validate password
 
-if ($password !== 'kilkari2008') { // default password
+if ($password !== 'xxxxxxxx') { // default password
     echo "<script>alert('Incorrect password, try again!');history.go(-1);
     </script>";
 
