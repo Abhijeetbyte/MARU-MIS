@@ -192,9 +192,57 @@ if (($handle = fopen($filename, "r")) !== FALSE) {
   $last_record = array_slice($records, count($records)-1);
 
   // extract specific columns data for highlights
-  $data_3 = $last_record[0][2] ?? '0'; // value or with a default variable;
-  $data_4 = $last_record[0][3] ?? '0'; // value or with a default variable;
-  $data_5 = $last_record[0][4] ?? '0'; // alue or with a default variable;
+  // $data_3 = $last_record[0][2] ?? '0'; // value or with a default variable;
+  // $data_4 = $last_record[0][3] ?? '0'; // value or with a default variable;
+  // $data_5 = $last_record[0][4] ?? '0'; // alue or with a default variable;
+  
+  
+  
+  
+  
+  
+  
+  // Calculate the average of column 3
+$data_3 = 0; // Initialize the variable to hold the sum
+$count = 0; // Initialize the variable to count the number of values
+
+foreach ($records as $record) {
+    if (isset($record[2])) {
+        $data_3 += intval($record[2]);
+        $count++;
+    }
+}
+
+if ($count > 0) {
+    $data_3 /= $count; // Calculate the average
+}
+
+
+
+
+
+// Find the maximum value in column 3
+$data_4 = null; // Initialize the variable to hold the maximum value
+
+foreach ($records as $record) {
+    if (isset($record[3])) {
+        $value = intval($record[3]);
+        if ($data_4 === null || $value > $data_4) {
+            $data_4 = $value;
+        }
+    }
+}
+
+
+ 
+  // Calculate the sum of column 4
+  $data_5 = 0; // Initialize the variable to hold the sum
+
+  foreach ($records as $record) {
+     if (isset($record[4])) {
+        $data_5 += intval($record[4]);
+    }
+}
 
 
 
