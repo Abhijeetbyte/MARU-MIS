@@ -110,13 +110,11 @@
 
 
 <?php
+    
 
-
-
-// Extract POST variables
+// Extract ID variables
 
 $id = $_REQUEST['id'] ?? 'BRAF01'; // fetch id value or with a default variable
-
 
 
 
@@ -125,8 +123,6 @@ $id = $_REQUEST['id'] ?? 'BRAF01'; // fetch id value or with a default variable
 $dir = 'data'; // default folder name, files (.csv) store inside it
 $filename = $dir . '/' . $id . '.csv'; // file naming acc. to ID no.
 $records = [];  // empty array to store all records
-$last_record = [];  // empty array to store last record
-
 
 
 
@@ -164,6 +160,7 @@ if (($handle = fopen($filename, "r")) !== FALSE) {
     while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {   // extract rows data
       $records[] = $row; // append in a array
     }
+    
 
     flock($handle, LOCK_UN); // unlock the file after reading
 
@@ -175,6 +172,7 @@ if (($handle = fopen($filename, "r")) !== FALSE) {
 
     
     fclose($handle);
+   
 
 
   } else {
@@ -185,39 +183,31 @@ if (($handle = fopen($filename, "r")) !== FALSE) {
   }
 
 
+  /* Get the last row data
 
-
-  // Get the last row data
-
-  $last_record = array_slice($records, count($records)-1);
+  $last_record []  = array_slice($records, count($records)-1);
 
   // extract specific columns data for highlights
   // $data_3 = $last_record[0][2] ?? '0'; // value or with a default variable;
   // $data_4 = $last_record[0][3] ?? '0'; // value or with a default variable;
   // $data_5 = $last_record[0][4] ?? '0'; // alue or with a default variable;
   
-  
-  
-  
-  
-  
-  
-  // Calculate the average of column 3
-$data_3 = 0; // Initialize the variable to hold the sum
-$count = 0; // Initialize the variable to count the number of values
+*/
+
+
+
+
+// Find the minimum value in column 2
+$data_3 = null; // Initialize the variable to hold the minimum value
 
 foreach ($records as $record) {
     if (isset($record[2])) {
-        $data_3 += intval($record[2]);
-        $count++;
+        $value = intval($record[2]);
+        if ($data_3 === null || $value < $data_3) {
+            $data_3 = $value;
+        }
     }
 }
-
-if ($count > 0) {
-    $data_3 /= $count; // Calculate the average
-}
-
-
 
 
 
@@ -234,15 +224,21 @@ foreach ($records as $record) {
 }
 
 
- 
-  // Calculate the sum of column 4
-  $data_5 = 0; // Initialize the variable to hold the sum
 
-  foreach ($records as $record) {
-     if (isset($record[4])) {
-        $data_5 += intval($record[4]);
+
+// Find the maximum value in column 4
+$data_5 = null; // Initialize the variable to hold the maximum value
+
+foreach ($records as $record) {
+    if (isset($record[4])) { // Check if the value in column 5 exists
+        $value = intval($record[4]); // Convert the value to an integer
+        if ($data_5 === null || $value > $data_5) { // Compare with the current maximum value
+            $data_5 = $value; // Update the maximum value if a higher value is found
+        }
     }
 }
+
+
 
 
 
