@@ -79,6 +79,8 @@
                 <p class="mb-8 leading-relaxed">Based on indigenous
                     molecular magnetic arsenic repulsion technology,
                     deployed for pilot testing since 2 years.</p>
+                    <p style="color:red">The pilot has concluded and closed on 11-6-2023. FTK (Field testing kit ) was used for regular assessment of arsenic concentration, which gives an estimated value</p>
+                    <br/>
 
                     <form action="">
                     <div class="flex w-full md:justify-start justify-center items-end">
