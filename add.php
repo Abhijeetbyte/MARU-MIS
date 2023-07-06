@@ -179,7 +179,7 @@ $ids = array("BRAF01","BRAF02","BRAF03","BRAF04","BRAF05","BRAF06");  // IDs
 
 // Validate password
 
-if ($password !== 'xxxxxxxx') { // default password
+if ($password !== 'xxxxxxxx') { // session password
     echo "<script>alert('Incorrect password, try again!');history.go(-1);
     </script>";
 
@@ -222,11 +222,11 @@ if (!file_exists($dir)) {
 $file = fopen($filename, 'a+');
 
 // Acquire exclusive lock on file to prevent concurrent access
-if (flock($file, LOCK_EX)) {
-
-    fputcsv($file, [$id, $datetime, $fconc, $rconc, $flow, $location, $remark]);
-
-    flock($file, LOCK_UN);
+    if (flock($file, LOCK_EX)) {
+        fputcsv($file, [$id, $datetime, $fconc, $rconc, $flow, $location, $remark]);
+        
+        // Release the lock
+        flock($file, LOCK_UN);
 
 
     echo "<script>alert('Submitted successfully!');history.go(-1);</script>";
@@ -234,8 +234,8 @@ if (flock($file, LOCK_EX)) {
     echo "<script>alert('Unsuccessful ! Try after few minutes');history.go(-1);</script>";
 }
 
-fclose($file);
-
+ // Close the file
+ fclose($file);
    
 }
   ?>
