@@ -55,7 +55,7 @@
                     data
                 </button>
 
-                <button onclick="window.location.href='about.php';"
+                <button onclick="window.location.href='about.html';"
                     class="mr-5 inline-flex items-center bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-blue-600 rounded text-white text-base mt-4 md:mt-0">About
                     us
                 </button>
